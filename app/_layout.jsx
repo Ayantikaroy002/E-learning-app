@@ -1,17 +1,12 @@
+import React from 'react'; 
 import { Stack } from "expo-router";
-import { ClerkProvider, ClerkLoaded } from '@clerk/clerk-expo';
+import { ClerkProvider } from '@clerk/clerk-expo';
 import * as SecureStore from 'expo-secure-store';
-import { Slot } from 'expo-router';
 
 const tokenCache = {
   async getToken(key) {
     try {
       const item = await SecureStore.getItemAsync(key);
-      if (item) {
-        console.log(`${key} was used 🔐 \n`);
-      } else {
-        console.log('No values stored under key: ' + key);
-      }
       return item;
     } catch (error) {
       console.error('SecureStore get item error: ', error);
@@ -34,6 +29,7 @@ export default function RootLayout() {
       tokenCache={tokenCache} 
       publishableKey="pk_test_aW1wcm92ZWQtbWVlcmthdC0zNy5jbGVyay5hY2NvdW50cy5kZXYk"
     >
+      {/* Do not wrap in NavigationContainer, as expo-router handles routing */}
       <Stack>
         <Stack.Screen name="index" options={{ headerShown: false }} />
       </Stack>

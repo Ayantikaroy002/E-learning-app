@@ -12,7 +12,7 @@ export default function Home() {
     <ScrollView style={{}}>
       <Header setSearchQuery={setSearchQuery} />
       
-      <View style={{paddingTop:25,backgroundColor:'#C9C9C9', marginTop:-20, borderTopLeftRadius:25, borderTopRightRadius:25}}>
+      <View style={{paddingTop:25,backgroundColor:'#C9C9C9', marginTop:-30, borderTopLeftRadius:25, borderTopRightRadius:25}}>
         <CourseList level={'basic'} searchQuery={searchQuery} />
         <CourseList level={'intermediate'} searchQuery={searchQuery} />
         <CourseList level={'advanced'} searchQuery={searchQuery} />

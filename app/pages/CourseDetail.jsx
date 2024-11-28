@@ -144,32 +144,35 @@ export default function CourseDetail() {
       <View style={{ padding: 15, marginTop: 15, marginBottom:35, borderRadius: 15,backgroundColor: '#CEB9C4' }}>
         <Text style={{ fontSize: 22, fontFamily: 'RowdiesRegular' }}>Chapters</Text>
         {chapters?.map((item, index) => {
-          const words = item.title.split(' ');
-          const truncatedTitle = words.length > 2 ? `${words.slice(0, 2).join(' ')}...` : item.title;
-          return (
-            <TouchableOpacity
-              key={index}
-              style={
-                isChapterOngoing === item.id
-                  ? styles.OngoingChapter
-                  : checkChapterCompleted(item.id)
-                  ? styles.CompletedChapter
-                  : styles.inCompletedChapter
-              }
-              onPress={() => OnChapterPress(item.content, item.id)}
-            >
-              <Text style={{ fontSize: 20 }}>{index + 1}</Text>
-              <Text style={{ fontSize: 15 }}>{truncatedTitle}</Text>
-              { isChapterOngoing === item.id? 
-              <Ionicons name="play-circle-outline" size={30} color="#8A3259" />:
-              !checkChapterCompleted(item.id) ? (
-                <Ionicons name="lock-closed-sharp" size={28} color="#5A5155" />
-              ) : (
-                <Ionicons name="checkmark-circle-sharp" size={30} color="#1B4A0B" />
-              )}
-            </TouchableOpacity>
-          );
-        })}
+  const truncatedTitle = typeof item.title === 'string'
+    ? item.title.split(' ').slice(0, 2).join(' ') + '...'
+    : 'Untitled Chapter';
+  
+  return (
+    <TouchableOpacity
+      key={index}
+      style={
+        isChapterOngoing === item.id
+          ? styles.OngoingChapter
+          : checkChapterCompleted(item.id)
+          ? styles.CompletedChapter
+          : styles.inCompletedChapter
+      }
+      onPress={() => OnChapterPress(item.content, item.id)}
+    >
+      <Text style={{ fontSize: 20 }}>{index + 1}</Text>
+      <Text style={{ fontSize: 15 }}>{truncatedTitle}</Text>
+      {isChapterOngoing === item.id ? (
+        <Ionicons name="play-circle-outline" size={30} color="#8A3259" />
+      ) : !checkChapterCompleted(item.id) ? (
+        <Ionicons name="lock-closed-sharp" size={28} color="#5A5155" />
+      ) : (
+        <Ionicons name="checkmark-circle-sharp" size={30} color="#1B4A0B" />
+      )}
+    </TouchableOpacity>
+  );
+})}
+
       </View>
     </ScrollView>
   );

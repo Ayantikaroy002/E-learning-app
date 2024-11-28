@@ -7,7 +7,7 @@ export default function Header({ setSearchQuery }) {
     const { isLoaded, isSignedIn, user } = useUser();
   
     return isLoaded && (
-      <View style={{backgroundColor:'#52011D', height:200, paddingTop:30,}}>
+      <View style={{backgroundColor:'#52011D', height:200, paddingTop:2,}}>
         <View style={{display:'flex', flexDirection:'row', alignItems:'center', justifyContent:'space-between', paddingHorizontal:25,}}>
           <View style={{display:'flex', flexDirection:'row', gap:10, alignItems:'center'}}>
             <Image 

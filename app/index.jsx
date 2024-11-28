@@ -3,7 +3,7 @@ import { SafeAreaView, StyleSheet, Text } from 'react-native';
 import Login from './pages/Login.jsx';
 import TabNavigation from './Navigation/TabNavigation.js';
 import { SignedIn, SignedOut } from '@clerk/clerk-expo';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native'; // Keep this here
 import { CompletedChapterContext } from './Context/CompletedChapter.js';
 import { OngoingChapterContext } from './Context/OngoingChapter.js';
 import { useFonts } from 'expo-font';
@@ -25,24 +25,23 @@ export default function Index() {
   const [isChapterOngoing, setIsChapterOngoing] = useState(false);
 
   if (!fontsLoaded) {
-    return <Text>Loading...</Text>; 
+    return <Text style={styles.loadingText}>Loading...</Text>;  // Wrap text inside Text component
   }
 
   return (
     <OngoingChapterContext.Provider value={{ isChapterOngoing, setIsChapterOngoing }}>
-      <CompletedChapterContext.Provider value={{ isChapterCompleted, setIsChapterCompleted }}>
-        <SafeAreaView style={styles.safeArea}>
-          <SignedIn>
-            <NavigationContainer>
-              <TabNavigation />
-            </NavigationContainer>
-          </SignedIn>
-          <SignedOut>
-            <Login />
-          </SignedOut>
-        </SafeAreaView>
-      </CompletedChapterContext.Provider>
-    </OngoingChapterContext.Provider>
+    <CompletedChapterContext.Provider value={{ isChapterCompleted, setIsChapterCompleted }}>
+      <SafeAreaView style={styles.safeArea}>
+        <SignedIn>
+          <TabNavigation /> {/* Your main navigation */}
+        </SignedIn>
+        <SignedOut>
+          <Login /> {/* The login page when not signed in */}
+        </SignedOut>
+      </SafeAreaView>
+    </CompletedChapterContext.Provider>
+  </OngoingChapterContext.Provider>
+  
   );
 }
 
